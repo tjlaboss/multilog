@@ -141,20 +141,20 @@ class Processor:
 		ilogger.debug(f"Launched Process: {proc.pid}")
 		self._procs[i] = proc
 	
-	def run(self, function, args=None, kwargs=None):
+	def run(self, function, *args, **kwargs):
 		"""Start running multiprocessing a provided function with nice logging
 
 		Parameters:
 		-----------
-		f: callable
+		function: callable
 			Function or other callable.
 			Must accept 'logger=...' as an argument.
 			May accept *args, **kwargs.
 
-		f_args: tuple; optional
+		args: tuple; optional
 			args to function(*args)
 
-		f_kwargs: dict; optional
+		kwargs: dict; optional
 			kwargs to f(**kwargs)
 		"""
 		for i, proc in enumerate(self._procs):
