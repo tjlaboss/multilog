@@ -6,11 +6,9 @@ install:
   - pip install sphinx_rtd_theme
   - pip install numpy
 script:
-#  - echo "run_tests"
-# after_script:
   - cd doc
   - sphinx-apidoc -e -o . ../multilog/
-  - mkdir _build; mkdir _build/html; echo "Hello World" > _build/html/index.html
+  - make html
 deploy:
   provider: pages
   skip_cleanup: true
