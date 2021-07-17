@@ -6,8 +6,8 @@ install:
   - pip install sphinx_rtd_theme
   - pip install numpy
 script:
-  - echo "run_tests"
-after_script:
+#  - echo "run_tests"
+# after_script:
   - cd doc
   - echo "sphinx-apidoc -e -o . ../multilog/"
   - mkdir _build; mkdir _build/html; echo "Hello World" > _build/html/index.html
@@ -19,4 +19,4 @@ deploy:
   local_dir: doc/_build/html/
   on:
     branch: develop
-
+  
