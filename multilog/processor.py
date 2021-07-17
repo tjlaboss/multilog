@@ -141,7 +141,7 @@ class Processor:
 		ilogger.debug(f"Launched Process: {proc.pid}")
 		self._procs[i] = proc
 	
-	def run(self, function, *args, **kwargs):
+	def run(self, function, arglist=None, kwarglist=None):
 		"""Start running multiprocessing a provided function with nice logging
 
 		Parameters:
@@ -151,15 +151,26 @@ class Processor:
 			Must accept 'logger=...' as an argument.
 			May accept *args, **kwargs.
 
-		args: tuple; optional
-			args to function(*args)
+		arglist: list of tuple; optional
+			List of argument tuples to function.
+			If provided, length of list must be equal to Processor.n
+			Usage will be function(*args).
+			[Default: None]
 
-		kwargs: dict; optional
-			kwargs to f(**kwargs)
+		kwargs: list of dict; optional
+			List of keyword argument dicts to function.
+			If provided, length of list must be equal to Processor.n
+			Usage will be function(**kwargs)
+			[Default: None]
 		"""
+		if arglist is None:
+			arglist = [()]*self._n
+		if kwarglist is None:
+			kwarglist = [{}]*self._n
+		assert len(arglist) == len(kwarglist) == self._n
 		for i, proc in enumerate(self._procs):
 			if proc is None:
-				self._start_process(i, function, args, kwargs)
+				self._start_process(i, function, arglist[i], kwarglist[i])
 			else:
 				self._logger.warning(f"Process {i+1}/{self._n} is already running; skipping.")
 		
