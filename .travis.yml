@@ -9,7 +9,7 @@ script:
 #  - echo "run_tests"
 # after_script:
   - cd doc
-  - echo "sphinx-apidoc -e -o . ../multilog/"
+  - sphinx-apidoc -e -o . ../multilog/
   - mkdir _build; mkdir _build/html; echo "Hello World" > _build/html/index.html
 deploy:
   provider: pages
