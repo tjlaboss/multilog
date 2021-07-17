@@ -5,6 +5,10 @@ install:
   - pip install sphinx
   - pip install sphinx_rtd_theme
   - pip install numpy
+  - pip install pytest
+before_script:
+ - cd tests
+ - pytest
 script:
   - cd doc
   - sphinx-apidoc -e -o . ../multilog/
