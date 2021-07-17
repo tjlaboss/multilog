@@ -37,6 +37,8 @@ class Processor:
 		if logger is None:
 			logger = get_default_logger()
 		self._logger = logger
+		self._queue = mp.Queue(n)
+		self._logger.debug(f"{self} instantiated.")
 		
 	def __len__(self):
 		return self._n
@@ -57,4 +59,9 @@ class Processor:
 	@property
 	def logger(self):
 		return self._logger
+	
+	def _handle_exception(self, sub_logger, e, description):
+		sub_logger.exception(e)
+		sub_logger.error(f"{description} failed: {e}")
+		self._queue.put(self._placeholder)
 
