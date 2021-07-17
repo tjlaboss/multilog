@@ -16,6 +16,38 @@ def get_default_logger():
 
 
 def get_process_logger(i: int, n: int, base_logger: logging.Logger):
+	"""Get a numbered process logger in the appropriate namespace
+	
+	Get a named process logger.
+	The process logger will use the list of handlers of base_logger.
+	If base_logger has a name, the process logger will be in that namespace.
+	
+	Examples:
+	---------
+	>>> get_process_logger(1, 1, logging.Logger("foo"))
+	< Logger foo.1 >
+	>>> get_process_logger(1, 10, logging.Logger("bar"))
+	< Logger bar.01 >
+	>>> get_process_logger(10, 10, logging.Logger())
+	< Logger 10 >
+	
+	Parameters:
+	-----------
+	i: int
+		ID of this logger
+	
+	n: int
+		Total number of process loggers.
+		Only used for padding name with zeros.
+		
+	base_logger: logging.Logger
+		Existing logger to base the namespace and handlers on.
+	
+	Returns:
+	--------
+	process_logger: logging.Logger
+		New (or existing) logger, with handlers set to base_logger.handlers.
+	"""
 	if n == 1:
 		iname = "1"
 	else:
@@ -77,6 +109,22 @@ class Processor:
 		return self._logger
 	
 	def _wrapper(self, f, f_args, f_kwargs, ilogger):
+		"""Wrapper for whatever user function
+		
+		Parameters:
+		-----------
+		f: callable
+			Function or other callable.
+		
+		f_args: tuple
+			args to f(*args)
+		
+		f_kwargs: dict
+			kwargs to f(**kwargs)
+		
+		ilogger: logging.Logger
+			Appropriate process logger
+		"""
 		try:
 			value = f(*f_args, **f_kwargs, logger=ilogger)
 		except Exception as e:
@@ -92,7 +140,22 @@ class Processor:
 		proc.start()
 		self._procs[i] = proc
 	
-	def run(self, function, args, kwargs):
+	def run(self, function, args=None, kwargs=None):
+		"""Start running multiprocessing a provided function with nice logging
+
+		Parameters:
+		-----------
+		f: callable
+			Function or other callable.
+			Must accept 'logger=...' as an argument.
+			May accept *args, **kwargs.
+
+		f_args: tuple; optional
+			args to function(*args)
+
+		f_kwargs: dict; optional
+			kwargs to f(**kwargs)
+		"""
 		for i, proc in enumerate(self._procs):
 			if proc is None:
 				self._start_process(i, function, args, kwargs)
