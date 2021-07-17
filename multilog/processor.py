@@ -15,6 +15,19 @@ def get_default_logger():
 	return logging.getLogger(__name__)
 
 
+def get_process_logger(i: int, n: int, base_logger: logging.Logger):
+	if n == 1:
+		iname = "1"
+	else:
+		nd = np.ceil(np.log10(n+1))
+		iname = f"{{:0{nd:.0f}d}}".format(i)
+	if base_logger.name:
+		iname = f"{base_logger.name}.{iname}"
+	process_logger = logging.getLogger(iname)
+	process_logger.handlers = base_logger.handlers
+	return process_logger
+
+
 class Processor:
 	"""Multiprocessor with logging to a single file
 	
@@ -74,7 +87,7 @@ class Processor:
 		self._queue.put(value)
 	
 	def _start_process(self, i, function, args, kwargs):
-		ilogger = logging.getLogger(str(i))  # TODO: placeholder
+		ilogger = get_process_logger(i, self._n, self._logger)
 		proc = mp.Process(target=self._wrapper, args=(function, args, kwargs, ilogger))
 		proc.start()
 		self._procs[i] = proc
