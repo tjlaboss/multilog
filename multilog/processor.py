@@ -63,21 +63,28 @@ class Processor:
 	def logger(self):
 		return self._logger
 	
-	def _run_process(self, i, function, args, kwargs):
-		# TODO
-		pass
+	def _wrapper(self, f, f_args, f_kwargs, ilogger):
+		try:
+			value = f(*f_args, **f_kwargs, logger=ilogger)
+		except Exception as e:
+			func_name = getattr(f, "__name__", repr(f))
+			ilogger.exception(e)
+			ilogger.error(f"Call to function {func_name} failed: {e}")
+			value = self._placeholder
+		self._queue.put(value)
+	
+	def _start_process(self, i, function, args, kwargs):
+		ilogger = logging.getLogger(str(i))  # TODO: placeholder
+		proc = mp.Process(target=self._wrapper, args=(function, args, kwargs, ilogger))
+		proc.start()
+		self._procs[i] = proc
 	
 	def run(self, function, args, kwargs):
 		for i, proc in enumerate(self._procs):
 			if proc is None:
-				self._run_process(i, function, args, kwargs)
+				self._start_process(i, function, args, kwargs)
 			else:
 				self._logger.warning(f"Process {i+1}/{self._n} is already running; skipping.")
-	
-	def _handle_exception(self, sub_logger, e, description):
-		sub_logger.exception(e)
-		sub_logger.error(f"{description} failed: {e}")
-		self._queue.put(self._placeholder)
 	
 	def kill(self):
 		"""Kill all child processes"""
