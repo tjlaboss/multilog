@@ -63,6 +63,17 @@ class Processor:
 	def logger(self):
 		return self._logger
 	
+	def _run_process(self, i, function, args, kwargs):
+		# TODO
+		pass
+	
+	def run(self, function, args, kwargs):
+		for i, proc in enumerate(self._procs):
+			if proc is None:
+				self._run_process(i, function, args, kwargs)
+			else:
+				self._logger.warning(f"Process {i+1}/{self._n} is already running; skipping.")
+	
 	def _handle_exception(self, sub_logger, e, description):
 		sub_logger.exception(e)
 		sub_logger.error(f"{description} failed: {e}")
