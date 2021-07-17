@@ -1,0 +1,8 @@
+language: python
+python:
+ - "3.6"
+install:
+  - pip install sphinx
+  - pip install sphinx_rtd_theme
+  - pip install numpy
+
