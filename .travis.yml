@@ -5,12 +5,14 @@ install:
   - pip install sphinx
   - pip install sphinx_rtd_theme
   - pip install numpy
+  - pip install pytest
+before_script:
+ - cd tests
+ - pytest
 script:
-#  - echo "run_tests"
-# after_script:
   - cd doc
-  - echo "sphinx-apidoc -e -o . ../multilog/"
-  - mkdir _build; mkdir _build/html; echo "Hello World" > _build/html/index.html
+  - sphinx-apidoc -e -o . ../multilog/
+  - make html
 deploy:
   provider: pages
   skip_cleanup: true
