@@ -138,6 +138,7 @@ class Processor:
 		ilogger = get_process_logger(i, self._n, self._logger)
 		proc = mp.Process(target=self._wrapper, args=(function, args, kwargs, ilogger))
 		proc.start()
+		ilogger.debug(f"Launched Process: {proc.pid}")
 		self._procs[i] = proc
 	
 	def run(self, function, args=None, kwargs=None):
@@ -161,6 +162,21 @@ class Processor:
 				self._start_process(i, function, args, kwargs)
 			else:
 				self._logger.warning(f"Process {i+1}/{self._n} is already running; skipping.")
+		
+	def wait(self):
+		"""Wait while all processes run, and return all their results
+
+		Returns:
+		--------
+		values: list
+			List of objects returned by the user's function (or Processor.placeholder).
+		"""
+		values = [self._placeholder]*self._n
+		for i, proc in enumerate(self._procs):
+			if proc is not None:
+				values[i] = self._queue.get()
+				proc.join()
+		return values
 	
 	def kill(self):
 		"""Kill all child processes"""
