@@ -5,6 +5,7 @@ Module containing Processor class and helper functions.
 This StackOverflow thread was helpful: https://stackoverflow.com/q/10415028
 """
 
+import atexit
 import logging
 import numpy as np
 import multiprocessing as mp
@@ -37,8 +38,10 @@ class Processor:
 		if logger is None:
 			logger = get_default_logger()
 		self._logger = logger
+		self._procs = [None]*n
 		self._queue = mp.Queue(n)
 		self._logger.debug(f"{self} instantiated.")
+		atexit.register(self.kill)
 		
 	def __len__(self):
 		return self._n
@@ -64,4 +67,11 @@ class Processor:
 		sub_logger.exception(e)
 		sub_logger.error(f"{description} failed: {e}")
 		self._queue.put(self._placeholder)
+	
+	def kill(self):
+		"""Kill all child processes"""
+		for proc in self._procs:
+			if proc is not None:
+				proc.kill()
+			self._procs = [None]*self._n
 
