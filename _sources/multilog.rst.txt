@@ -1,0 +1,18 @@
+multilog package
+================
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   multilog.processor
+
+Module contents
+---------------
+
+.. automodule:: multilog
+   :members:
+   :undoc-members:
+   :show-inheritance:

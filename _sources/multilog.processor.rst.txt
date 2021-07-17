@@ -1,0 +1,7 @@
+multilog.processor module
+=========================
+
+.. automodule:: multilog.processor
+   :members:
+   :undoc-members:
+   :show-inheritance:
