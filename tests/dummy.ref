@@ -1,0 +1,8 @@
+test - INFO: Testing dummy logger.
+test.0 - INFO: >>> 2 <<<
+test.0 - INFO: Done.
+test.1 - INFO: >>> one <<<
+test.1 - INFO: Done.
+test.2 - WARNING: Tag not found.
+test.2 - INFO: Done.
+test - INFO: Got results: [0, 0, 1]
