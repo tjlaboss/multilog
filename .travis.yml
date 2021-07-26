@@ -4,6 +4,7 @@ python:
 install:
   - pip install sphinx
   - pip install sphinx_rtd_theme
+  - pip install numpydoc
   - pip install numpy
   - pip install pytest
 before_script:
