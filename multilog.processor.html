@@ -94,7 +94,7 @@
 <li class="toctree-l4 current"><a class="current reference internal" href="#">multilog.processor module</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="multilog.html#module-contents">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multilog.html#module-multilog">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -170,8 +170,92 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="multilog-processor-module">
-<h1>multilog.processor module<a class="headerlink" href="#multilog-processor-module" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-multilog.processor">
+<span id="multilog-processor-module"></span><h1>multilog.processor module<a class="headerlink" href="#module-multilog.processor" title="Permalink to this headline">¶</a></h1>
+<p>Processor</p>
+<p>Module containing Processor class and helper functions.
+This StackOverflow thread was helpful: <a class="reference external" href="https://stackoverflow.com/q/10415028">https://stackoverflow.com/q/10415028</a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="multilog.processor.Processor">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">multilog.processor.</span></span><span class="sig-name descname"><span class="pre">Processor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">placeholder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">nan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#multilog.processor.Processor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Multiprocessor with logging to a single file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>logger</strong></dt><dd></dd>
+<dt><strong>n</strong></dt><dd></dd>
+<dt><strong>placeholder</strong></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#multilog.processor.Processor.kill" title="multilog.processor.Processor.kill"><code class="xref py py-obj docutils literal notranslate"><span class="pre">kill</span></code></a>()</p></td>
+<td><p>Kill all child processes</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#multilog.processor.Processor.run" title="multilog.processor.Processor.run"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run</span></code></a>(function[, arglist, kwarglist])</p></td>
+<td><p>Start running multiprocessing a provided function with nice logging</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#multilog.processor.Processor.wait" title="multilog.processor.Processor.wait"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wait</span></code></a>()</p></td>
+<td><p>Wait while all processes run, and return all their results</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="multilog.processor.Processor.kill">
+<span class="sig-name descname"><span class="pre">kill</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#multilog.processor.Processor.kill" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kill all child processes</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="multilog.processor.Processor.logger">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">logger</span></span><a class="headerlink" href="#multilog.processor.Processor.logger" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="multilog.processor.Processor.n">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">n</span></span><a class="headerlink" href="#multilog.processor.Processor.n" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="multilog.processor.Processor.placeholder">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">placeholder</span></span><a class="headerlink" href="#multilog.processor.Processor.placeholder" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="multilog.processor.Processor.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arglist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwarglist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#multilog.processor.Processor.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start running multiprocessing a provided function with nice logging</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="multilog.processor.Processor.wait">
+<span class="sig-name descname"><span class="pre">wait</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#multilog.processor.Processor.wait" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wait while all processes run, and return all their results</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="multilog.processor.get_default_logger">
+<span class="sig-prename descclassname"><span class="pre">multilog.processor.</span></span><span class="sig-name descname"><span class="pre">get_default_logger</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#multilog.processor.get_default_logger" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="multilog.processor.get_process_logger">
+<span class="sig-prename descclassname"><span class="pre">multilog.processor.</span></span><span class="sig-name descname"><span class="pre">get_process_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_logger</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">logging.Logger</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#multilog.processor.get_process_logger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a numbered process logger in the appropriate namespace</p>
+<p>Get a named process logger.
+The process logger will use the list of handlers of base_logger.
+If base_logger has a name, the process logger will be in that namespace.</p>
+</dd></dl>
+
 </div>
 
 
