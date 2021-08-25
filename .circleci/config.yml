@@ -7,13 +7,18 @@ orbs:
   # See the orb documentation here: https://circleci.com/developer/orbs/orb/circleci/python
   python: circleci/python@1.2
 
-workflows:
+default:
   sample:  # This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run. 
     # For more details on extending your workflow, see the configuration docs: https://circleci.com/docs/2.0/configuration-reference/#workflows 
     jobs:
       - build-and-test
-
+      - github-pages
+          requires:
+            - build-and-test
+          filters:
+            branches:
+              only: master
 
 jobs:
   build-and-test:  # This is the name of the job, feel free to change it to better match what you're trying to do!
@@ -39,3 +44,22 @@ jobs:
           name: Run tests
           # This assumes pytest is installed via the install-package step above
           command: python -m pytest
+      - run:
+          name: Build pages
+          command: cd doc && sphinx-apidoc -e -o . ../multilog/ && make html
+  github-pages:
+    docker:
+      - image: node:8.10.0
+    steps:
+      - checkout
+      - attach_workspace:
+          at: docs/_build
+    - run:
+        name: Install and configure dependencies
+        command: |
+          npm install -g --silent gh-pages@2.0.1
+          git config user.email "ci-build@tjla.boston"
+          git config user.name "ci-build"
+    - run:
+        name: Deploy docs to gh-pages branch
+        command: gh-pages --dist docs/_build/html
