@@ -1,5 +1,10 @@
 # Some testing materials
 
+import os as _os
+
+TEST_ROOT = _os.path.dirname(_os.path.abspath(__file__))
+DUMMY_REF = _os.path.join(TEST_ROOT, "dummy.ref")
+
 LIST_TIMES = (1, 2, 4, 8)
 N = len(LIST_TIMES)
 TUPLE1_TIMES = [(_,) for _ in LIST_TIMES]

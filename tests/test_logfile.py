@@ -2,6 +2,7 @@
 
 import logging
 from functions import dummy_f
+from assets import DUMMY_REF
 import sys; sys.path.append('..')
 import multilog
 
@@ -47,7 +48,7 @@ def test_dummy():
 	results = mlp.wait()
 	results.sort()
 	dummy_logger.info("Got results: {}".format(results))
-	_check_file(TEST_FILE, "dummy.ref")
+	_check_file(TEST_FILE, DUMMY_REF)
 	print("test_dummy() passed.")
 
 
