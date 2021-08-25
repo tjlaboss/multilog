@@ -56,7 +56,6 @@ def get_process_logger(i: int, n: int, base_logger: logging.Logger):
 	if base_logger.name:
 		iname = f"{base_logger.name}.{iname}"
 	process_logger = logging.getLogger(iname)
-	process_logger.handlers = base_logger.handlers
 	return process_logger
 
 
