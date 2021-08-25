@@ -49,13 +49,17 @@ jobs:
       - run:
           name: Build pages
           command: cd doc && sphinx-apidoc -e -o . ../multilog/ && make html
+      - persist_to_workspace:
+          root: doc/_build
+          paths: html
+
   github-pages:
     docker:
       - image: node:8.10.0
     steps:
       - checkout
       - attach_workspace:
-          at: docs/_build
+          at: doc/_build
       - run:
           name: Install and configure gh-pages dependency
           command: |
@@ -64,4 +68,6 @@ jobs:
             git config user.name "ci-build"
       - run:
           name: Deploy docs to gh-pages branch
-          command: gh-pages --dist doc/_build/html
+          command: gh-pages --message "[skip ci] Updates" --dist doc/_build/html
+
+          
