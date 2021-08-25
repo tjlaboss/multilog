@@ -18,7 +18,9 @@ workflows:
             - build-and-test
           filters:
             branches:
-              only: master
+              only: 
+                - master
+                - develop
 
 jobs:
   build-and-test:  # This is the name of the job, feel free to change it to better match what you're trying to do!
@@ -47,19 +49,28 @@ jobs:
       - run:
           name: Build pages
           command: cd doc && sphinx-apidoc -e -o . ../multilog/ && make html
+      - persist_to_workspace:
+          root: doc/_build
+          paths: html
+
   github-pages:
     docker:
       - image: node:8.10.0
     steps:
       - checkout
       - attach_workspace:
-          at: docs/_build
+          at: doc/_build
       - run:
           name: Install and configure gh-pages dependency
           command: |
             npm install -g --silent gh-pages@2.0.1
             git config user.email "ci-build@tjla.boston"
             git config user.name "ci-build"
+      - add_ssh_keys:
+          fingerprints:
+            - "85:16:1f:6f:14:93:a5:74:57:30:03:75:e1:9b:c2:08"
       - run:
           name: Deploy docs to gh-pages branch
-          command: gh-pages --dist docs/_build/html
+          command: gh-pages --message "[skip ci] Updates" --dist doc/_build/html
+
+          
