@@ -7,13 +7,13 @@ orbs:
   # See the orb documentation here: https://circleci.com/developer/orbs/orb/circleci/python
   python: circleci/python@1.2
 
-default:
-  sample:  # This is the name of the workflow, feel free to change it to better match your workflow.
+workflows:
+  default:  # This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run. 
     # For more details on extending your workflow, see the configuration docs: https://circleci.com/docs/2.0/configuration-reference/#workflows 
     jobs:
       - build-and-test
-      - github-pages
+      - github-pages:
           requires:
             - build-and-test
           filters:
@@ -54,12 +54,12 @@ jobs:
       - checkout
       - attach_workspace:
           at: docs/_build
-    - run:
-        name: Install and configure dependencies
-        command: |
-          npm install -g --silent gh-pages@2.0.1
-          git config user.email "ci-build@tjla.boston"
-          git config user.name "ci-build"
-    - run:
-        name: Deploy docs to gh-pages branch
-        command: gh-pages --dist docs/_build/html
+      - run:
+          name: Install and configure gh-pages dependency
+          command: |
+            npm install -g --silent gh-pages@2.0.1
+            git config user.email "ci-build@tjla.boston"
+            git config user.name "ci-build"
+      - run:
+          name: Deploy docs to gh-pages branch
+          command: gh-pages --dist docs/_build/html
