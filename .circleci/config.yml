@@ -18,7 +18,9 @@ workflows:
             - build-and-test
           filters:
             branches:
-              only: master
+              only: 
+			    - master
+				- develop
 
 jobs:
   build-and-test:  # This is the name of the job, feel free to change it to better match what you're trying to do!
@@ -62,4 +64,4 @@ jobs:
             git config user.name "ci-build"
       - run:
           name: Deploy docs to gh-pages branch
-          command: gh-pages --dist docs/_build/html
+          command: gh-pages --dist doc/_build/html
