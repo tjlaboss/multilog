@@ -19,8 +19,8 @@ workflows:
           filters:
             branches:
               only: 
-			    - master
-				- develop
+                - master
+                - develop
 
 jobs:
   build-and-test:  # This is the name of the job, feel free to change it to better match what you're trying to do!
