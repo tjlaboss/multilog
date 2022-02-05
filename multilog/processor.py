@@ -92,7 +92,7 @@ class Processor:
 	
 	def __str__(self):
 		ret = f"<{self.__class__.__name__}>"
-		ret += f" ({self._n} processes, placeholder={self._placeholder})"
+		ret += f" ({self._n} processes, placeholder={repr(self._placeholder)})"
 		return ret
 	
 	@property
