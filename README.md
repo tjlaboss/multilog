@@ -1,7 +1,9 @@
 # Multilog
 
-[![License](https://img.shields.io/github/license/openmc-dev/openmc.svg)](http://openmc.readthedocs.io/en/latest/license.html)
-[![travis-develop](https://travis-ci.com/tjlaboss/multilog.svg?branch=develop)](https://travis-ci.com/github/tjlaboss/multilog)
+| Branch | Build |
+|--------|--------|
+| Master  | [![CircleCI-master](https://circleci.com/gh/tjlaboss/multilog/tree/master.svg?style=svg)](https://circleci.com/gh/tjlaboss/multilog/?branch=master) |
+| Develop | [![CircleCI-develop](https://circleci.com/gh/tjlaboss/multilog/tree/develop.svg?style=svg)](https://circleci.com/gh/tjlaboss/multilog/?branch=develop) |
 
 Python module for logging from multiprocessing.
 
